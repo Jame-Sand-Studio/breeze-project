@@ -1,0 +1,302 @@
+/*
+ * Button — ported from Figma component "Button" (node 6518:15173).
+ * Design tokens below are copied 1:1 from the file's published variables
+ * (Figma MCP `get_variable_defs`), grouped under a `--btn-*` namespace so
+ * they can be swapped for a shared token file later without touching the
+ * rules that use them.
+ */
+
+.btn {
+  /* -- tokens (Figma variables) -- */
+  --btn-color-brand: #2e44e3;
+  --btn-color-navy: #171fa8;
+  --btn-color-grey: #e3e5eb;
+  --btn-color-white: #ffffff;
+  --btn-color-black: #000000;
+  --btn-radius-full: 999999px;
+  --btn-font-family: 'Hind', 'Segoe UI', sans-serif; /* Figma: Font/Body = Hind, weight 500 */
+  --btn-font-weight: 500;
+  --btn-line-height: 1.2;
+  --btn-shadow-inner: inset 0 0 8px 0 rgba(47, 35, 194, 0.2);
+  --btn-spacing-2: 2px;
+  --btn-spacing-4: 4px;
+  --btn-spacing-6: 6px;
+  --btn-spacing-8: 8px;
+  --btn-spacing-12: 12px;
+  --btn-spacing-16: 16px;
+  --btn-spacing-24: 24px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  gap: var(--btn-spacing-8);
+  border: none;
+  border-radius: var(--btn-radius-full);
+  font-family: var(--btn-font-family);
+  font-weight: var(--btn-font-weight);
+  line-height: var(--btn-line-height);
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  position: relative;
+  background: transparent;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.btn:disabled:not(.btn--loading) {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.btn__label {
+  text-transform: uppercase;
+}
+
+.btn__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn__icon > img,
+.btn__icon > svg {
+  display: block;
+}
+
+/* ---------- sizes ("device" variant) ---------- */
+
+.btn--desktop {
+  min-height: 54px;
+  font-size: 16px; /* Figma: Component/Button (desktop) */
+}
+.btn--desktop .btn__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.btn--mobile {
+  min-height: 40px;
+  font-size: 14px; /* Figma: Component/Button (mobile) */
+}
+.btn--mobile .btn__icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* icon layouts ("icon" variant) — padding shifts toward the icon's side */
+.btn--desktop.btn--icon-none {
+  padding: var(--btn-spacing-4) var(--btn-spacing-24) var(--btn-spacing-2);
+}
+.btn--desktop.btn--icon-left {
+  padding: var(--btn-spacing-4) var(--btn-spacing-24) var(--btn-spacing-4) var(--btn-spacing-16);
+}
+.btn--desktop.btn--icon-right {
+  padding: var(--btn-spacing-4) var(--btn-spacing-16) var(--btn-spacing-4) var(--btn-spacing-24);
+}
+.btn--desktop.btn--icon-both {
+  padding: var(--btn-spacing-4) var(--btn-spacing-16);
+}
+
+.btn--mobile.btn--icon-none {
+  padding: var(--btn-spacing-8) var(--btn-spacing-16) var(--btn-spacing-4);
+}
+.btn--mobile.btn--icon-left {
+  padding: var(--btn-spacing-8) var(--btn-spacing-16) var(--btn-spacing-6) var(--btn-spacing-12);
+}
+.btn--mobile.btn--icon-right {
+  padding: var(--btn-spacing-8) var(--btn-spacing-12) var(--btn-spacing-6) var(--btn-spacing-16);
+}
+.btn--mobile.btn--icon-both {
+  padding: var(--btn-spacing-8) var(--btn-spacing-12) var(--btn-spacing-6);
+  gap: var(--btn-spacing-4);
+}
+
+/* ---------- checkout (Figma icon=checkout) ---------- */
+
+.btn--checkout.btn--desktop {
+  padding: var(--btn-spacing-4) var(--btn-spacing-24) var(--btn-spacing-2);
+}
+.btn--checkout.btn--mobile {
+  padding: var(--btn-spacing-6) var(--btn-spacing-16) var(--btn-spacing-4);
+}
+
+.btn__checkout {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--btn-spacing-8);
+}
+.btn--mobile .btn__checkout {
+  gap: var(--btn-spacing-4);
+}
+.btn--secondary .btn__checkout {
+  align-items: center;
+}
+.btn--checkout .btn__label {
+  text-transform: none;
+}
+
+.btn__badge {
+  display: inline-flex;
+  align-items: center;
+}
+.btn__beam {
+  display: block;
+}
+.btn--desktop .btn__beam {
+  width: 42.947px;
+  height: 12px;
+}
+.btn--mobile .btn__beam {
+  width: 35.789px;
+  height: 10px;
+}
+
+/* ---------- style variants ---------- */
+
+/* primary */
+.btn--primary {
+  background: var(--btn-color-brand);
+  color: var(--btn-color-white);
+  box-shadow: var(--btn-shadow-inner);
+}
+.btn--primary:hover,
+.btn--primary[data-state='hover'] {
+  box-shadow: none;
+}
+.btn--primary:active,
+.btn--primary[data-state='press'] {
+  background: var(--btn-color-navy);
+  box-shadow: none;
+}
+
+/* secondary */
+.btn--secondary {
+  background: var(--btn-color-white);
+  color: var(--btn-color-black);
+  border: 1px solid var(--btn-color-brand);
+}
+.btn--secondary:active,
+.btn--secondary[data-state='press'] {
+  background: var(--btn-color-grey);
+}
+
+/* icon-only, filled (Figma style=icon, icon=none) */
+.btn--icon {
+  background: var(--btn-color-brand);
+  color: var(--btn-color-white);
+  box-shadow: var(--btn-shadow-inner);
+}
+.btn--icon:hover,
+.btn--icon[data-state='hover'] {
+  box-shadow: none;
+}
+.btn--icon:active,
+.btn--icon[data-state='press'] {
+  background: var(--btn-color-navy);
+  box-shadow: none;
+}
+
+/* icon-only, outlined (Figma style=icon, icon=both) */
+.btn--icon-outline {
+  background: var(--btn-color-white);
+  color: var(--btn-color-black);
+  border: 1px solid var(--btn-color-brand);
+}
+.btn--icon-outline:active,
+.btn--icon-outline[data-state='press'] {
+  background: var(--btn-color-grey);
+}
+
+.btn--icon.btn--desktop,
+.btn--icon-outline.btn--desktop {
+  width: 48px;
+  height: 48px;
+  min-height: 48px;
+  padding: 0;
+}
+.btn--icon.btn--mobile,
+.btn--icon-outline.btn--mobile {
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+  padding: 0;
+}
+
+/* ---------- spinning (Figma style=Spining) — fan CTA; `.btn--loading` spins it ---------- */
+
+.btn--spinning {
+  gap: var(--btn-spacing-12);
+  padding: var(--btn-spacing-4) var(--btn-spacing-24) var(--btn-spacing-4) var(--btn-spacing-4);
+  background: var(--btn-color-brand);
+  color: var(--btn-color-white);
+  box-shadow: var(--btn-shadow-inner);
+}
+.btn--spinning.btn--desktop {
+  min-height: 48px;
+}
+.btn--spinning:hover,
+.btn--spinning[data-state='hover'] {
+  box-shadow: none;
+}
+.btn--spinning:active,
+.btn--spinning[data-state='press'] {
+  background: var(--btn-color-navy);
+  box-shadow: none;
+}
+.btn--loading {
+  cursor: progress;
+}
+
+/* white disc holding the fan graphic */
+.btn__fan {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--btn-radius-full);
+  background: var(--btn-color-white);
+  overflow: hidden;
+}
+.btn--desktop .btn__fan {
+  width: 40px;
+  height: 40px;
+}
+.btn--mobile .btn__fan {
+  width: 32px;
+  height: 32px;
+}
+.btn__fan-icon {
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+/* Figma hover frame: the fan turns 180° (press returns it to rest). */
+.btn--spinning:hover .btn__fan-icon,
+.btn--spinning[data-state='hover'] .btn__fan-icon {
+  transform: rotate(180deg);
+}
+.btn--spinning:active .btn__fan-icon,
+.btn--spinning[data-state='press'] .btn__fan-icon {
+  transform: none;
+}
+
+.btn--loading .btn__fan-icon {
+  animation: btn-spin 1.2s linear infinite;
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn__fan-icon {
+    transition: none;
+  }
+  .btn--loading .btn__fan-icon {
+    animation: none;
+  }
+}

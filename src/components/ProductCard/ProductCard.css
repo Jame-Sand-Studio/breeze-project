@@ -1,0 +1,445 @@
+/*
+ * ProductCard — ported from Figma component "Product Card" (node 6767:25006).
+ * Tokens below are copied 1:1 from the file's published variables (Figma
+ * MCP `get_variable_defs`), namespaced `--pc-*` so they can be swapped for
+ * a shared token file later. Button styling itself lives in Button.css —
+ * this file only positions the reused <Button>.
+ */
+
+.product-card {
+  --pc-color-surface-product-light: #edf0f5;
+  --pc-color-surface-white: #ffffff;
+  --pc-color-surface-brand: #2e44e3;
+  --pc-color-text-black: #000000;
+  --pc-color-text-grey: #7b7b7b;
+  --pc-color-text-brand: #2e44e3;
+  --pc-color-text-white: #ffffff;
+  --pc-color-border: rgba(227, 229, 235, 0.5);
+  --pc-color-border-detail: rgba(227, 229, 235, 0.4);
+  --pc-shadow-wrapper: drop-shadow(0 0 2px rgba(0, 0, 0, 0.05)) drop-shadow(0 0 12.5px rgba(0, 0, 0, 0.02));
+  --pc-shadow-wrapper-detail: drop-shadow(0 0 2px rgba(0, 0, 0, 0.15)) drop-shadow(0 0 12.5px rgba(0, 0, 0, 0.08));
+  --pc-shadow-inner: inset 0 0 8px 0 rgba(47, 35, 194, 0.2);
+  --pc-radius-12: 12px;
+  --pc-radius-16: 16px;
+  --pc-radius-24: 24px;
+  --pc-font-body: 'Hind', 'Segoe UI', sans-serif; /* Figma: Font/Body, weight 500 */
+  --pc-font-headline: 'Hind', 'Segoe UI', sans-serif; /* Figma: Font/Headline, weight 600 */
+  --pc-font-display: 'Chillax', 'Chillax Variable', 'Hind', sans-serif; /* Figma: Chillax Variable Semibold */
+  --pc-transition: 0.25s ease;
+
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: var(--pc-font-body);
+}
+
+.product-card *,
+.product-card *::before,
+.product-card *::after {
+  box-sizing: border-box;
+}
+
+.product-card--desktop {
+  width: 313px;
+  height: 478px;
+  border-radius: var(--pc-radius-24);
+}
+
+.product-card--mobile {
+  width: 167px;
+  height: 280px;
+  border-radius: var(--pc-radius-12);
+}
+
+.product-card:not(.product-card--cover) {
+  border: 1px solid var(--pc-color-border);
+  transition: border-color var(--pc-transition);
+}
+
+/* ---------- card wrapper (grey photo area + white text panel) ---------- */
+
+.product-card__wrapper {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+  background: var(--pc-color-surface-product-light);
+  filter: var(--pc-shadow-wrapper);
+  transition: filter var(--pc-transition);
+}
+
+.product-card--desktop .product-card__wrapper {
+  border-radius: var(--pc-radius-24);
+}
+
+/* ---------- media (photos + "New" tag) ---------- */
+
+.product-card__media {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+  margin-bottom: -24px; /* the white text panel overlaps the photo area */
+}
+
+.product-card__image {
+  position: absolute;
+  object-fit: cover;
+  pointer-events: none;
+  transition: opacity var(--pc-transition);
+}
+
+.product-card--desktop .product-card__image--default {
+  top: 0;
+  left: 24px;
+  width: 259px;
+  height: 294px;
+}
+.product-card--desktop .product-card__image--hover {
+  top: 0;
+  left: 28px;
+  width: 259px;
+  height: 294px;
+}
+
+.product-card--mobile .product-card__image--default {
+  top: 8px;
+  left: 7.78%;
+  width: 83.84%; /* Figma: left 7.78%, right 8.38% */
+  height: auto;
+  aspect-ratio: 137 / 156;
+}
+.product-card--mobile .product-card__image--hover {
+  top: 8px;
+  left: 13px;
+  width: 140px;
+  height: 159px;
+}
+
+.product-card__image--hover {
+  opacity: 0;
+}
+.product-card--show-detail.product-card--has-hover-image .product-card__image--default,
+.product-card--desktop.product-card--has-hover-image:hover .product-card__image--default {
+  opacity: 0;
+}
+.product-card--show-detail .product-card__image--hover,
+.product-card--desktop:hover .product-card__image--hover {
+  opacity: 1;
+}
+
+.product-card__tag {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  border: 1px solid var(--pc-color-surface-brand);
+  border-radius: var(--pc-radius-16);
+  background: rgba(46, 68, 227, 0.1);
+  color: var(--pc-color-text-brand);
+  font-family: var(--pc-font-display);
+  font-weight: 600;
+  font-size: 12px; /* Figma: Component/Card/tag */
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.product-card--mobile .product-card__tag {
+  top: 8px;
+  right: 8px;
+  font-size: 10px;
+}
+
+/* ---------- text panel (sku, title, swatches, price, add button) ---------- */
+
+.product-card__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: var(--pc-radius-24);
+  background: var(--pc-color-surface-white);
+}
+
+.product-card--mobile .product-card__body {
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: var(--pc-radius-12);
+}
+
+.product-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.product-card__sku {
+  margin: 0;
+  color: var(--pc-color-text-brand);
+  font-family: var(--pc-font-display);
+  font-weight: 600;
+  font-size: 12px; /* Figma: Component/Card/tag */
+  line-height: 1.5;
+}
+
+.product-card--mobile .product-card__sku {
+  font-size: 10px;
+}
+
+.product-card__title {
+  margin: 0;
+  color: var(--pc-color-text-black);
+  font-family: var(--pc-font-headline);
+  font-weight: 600;
+  font-size: 20px; /* Figma: Component/Card/headline */
+  line-height: 1.5;
+}
+
+.product-card--mobile .product-card__title {
+  font-size: 14px;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-card__swatches {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 20px;
+  padding-top: 4px;
+}
+
+.product-card--mobile .product-card__swatches {
+  gap: 2px;
+  height: 16px;
+  padding-top: 2px;
+}
+
+.product-card__swatch {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* CSS-color swatches mimic the Figma swatch exports (fill + #E3E5EB ring) */
+span.product-card__swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px #e3e5eb;
+}
+.product-card--mobile span.product-card__swatch {
+  width: 12px;
+  height: 12px;
+}
+
+.product-card__price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.product-card--mobile .product-card__price {
+  gap: 4px;
+}
+
+.product-card__price-current {
+  color: var(--pc-color-text-black);
+  font-family: var(--pc-font-headline);
+  font-weight: 600;
+  font-size: 20px; /* Figma: Component/Card/headline */
+  line-height: 1.5;
+}
+
+.product-card--mobile .product-card__price-current {
+  font-family: var(--pc-font-body);
+  font-weight: 500;
+  font-size: 12px; /* Figma: Component/Bento/description */
+  line-height: 1.4;
+}
+
+.product-card__price-original {
+  color: var(--pc-color-text-grey);
+  font-family: var(--pc-font-body);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.2;
+  text-decoration: line-through;
+}
+
+/* the "Add" button reuses <Button>; only position/reveal it here */
+.product-card__add {
+  position: absolute;
+}
+
+.product-card--desktop .product-card__add {
+  right: 24px;
+  bottom: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--pc-transition), bottom var(--pc-transition);
+}
+
+.product-card--desktop.product-card--show-detail .product-card__add,
+.product-card--desktop:hover .product-card__add {
+  bottom: 16px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.product-card--mobile .product-card__add {
+  right: 8px;
+  bottom: 8px;
+}
+
+/* ---------- desktop show-detail state ---------- */
+
+.product-card--desktop.product-card--show-detail,
+.product-card--desktop:not(.product-card--cover):hover {
+  border-color: var(--pc-color-border-detail);
+}
+
+.product-card--desktop.product-card--show-detail .product-card__wrapper,
+.product-card--desktop:hover .product-card__wrapper {
+  filter: var(--pc-shadow-wrapper-detail);
+}
+
+/* ---------- desktop-only spec rail ---------- */
+
+.product-card__specs {
+  position: absolute;
+  left: 16px;
+  top: calc(50% - 64px);
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--pc-transition), left var(--pc-transition), top var(--pc-transition);
+}
+
+.product-card--show-detail .product-card__specs,
+.product-card--desktop:hover .product-card__specs {
+  left: 8px;
+  top: calc(50% - 80px);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.product-card__spec {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 64px;
+}
+
+.product-card__spec-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--pc-color-surface-brand);
+  box-shadow: var(--pc-shadow-inner);
+}
+
+.product-card__spec-icon > img,
+.product-card__spec-icon > svg {
+  display: block;
+}
+
+.product-card__spec-label {
+  margin: 0;
+  color: var(--pc-color-text-brand);
+  font-family: var(--pc-font-body);
+  font-weight: 500;
+  font-size: 12px; /* Figma: Component/deco small */
+  line-height: 1.2;
+  text-align: center;
+  white-space: pre-line;
+}
+
+/* ---------- cover type ---------- */
+
+.product-card--cover {
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 24px;
+}
+
+.product-card--cover.product-card--mobile {
+  padding: 16px 8px;
+}
+
+.product-card__cover-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.product-card__cover-text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  color: var(--pc-color-text-white);
+}
+
+.product-card__eyebrow {
+  margin: 0;
+  font-family: var(--pc-font-body);
+  font-weight: 500;
+  font-size: 18px; /* Figma: Component/Card/description */
+  line-height: 1.4;
+}
+
+.product-card--mobile .product-card__eyebrow {
+  font-size: 14px;
+}
+
+.product-card__headline--cover {
+  margin: 0;
+  font-family: var(--pc-font-display);
+  font-weight: 600;
+  font-size: 40px; /* Figma: Component/Card/display */
+  line-height: 1.12;
+}
+
+.product-card--mobile .product-card__headline--cover {
+  font-size: 20px; /* Figma: Component/Bento/headline */
+}
+
+.product-card__cta {
+  position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-card,
+  .product-card * {
+    transition: none !important;
+  }
+}
