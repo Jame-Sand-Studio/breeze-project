@@ -1,0 +1,7 @@
+name = "figma-webhook-relay"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+[vars]
+GITHUB_REPO = "Jame-Sand-Studio/breeze-project"
+FIGMA_FILE_KEY = "8jTvIjCa9YRiJQecaNxt1u"

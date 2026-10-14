@@ -25,3 +25,7 @@ dist-ssr
 
 *storybook.log
 storybook-static
+
+# Figma sync working files
+.figma-sync
+figma-webhook-relay/.wrangler
